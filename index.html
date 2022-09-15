@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jsPDF-1.3.2/dist/jspdf.debug.js"></script>
+    <title>Assessment</title>    
+</head>
+<body>
+    <!-- <div id="loading">Loading . . . .</div> -->
+    <div id="intro" style="left: 200px;top: 50px;" class="intro wrapper">
+        <div class="center-box intro-center-box">
+            <div class="badge red-badge intro-badge">Unveil the brand</div>
+            <p class="intro-p-start">It's time to check your score</p>
+            <p><input type="text" name="stn_name" id="fname" placeholder="Enter your name" class="form-input"/></p>
+            <p><input type="text" name="stn_phone" id="phno" placeholder="Enter phone number" class="form-input"/></p>
+            <p class="intro-p-question"><b>Are you ready?</b> <span class="intro-p-question-focus">All the best</span></p>
+
+            <div class="intro-proceed"><span class="intro-proceed--label">Click proceed to begin</span> <button type="button" class="btn intro-btn">Proceed</button></div>
+        </div>
+    </div>
+
+    <div id="questions" class="questions wrapper flex">
+        <div class="question">
+            <header class="question-header">
+                <div id="question-text"></div>
+                <div class="question-header--badge badge">Unveil the brand</div>
+            </header>
+            <div class="question-header--caption">Select the correct option and click on SUBMIT</div>
+            <div class="clear"></div>
+            <div id="question-options" class="question-options">
+                <label class="question-answer wrong" id="first-option">
+                    <input id="op1" class="question-answer--option" type="radio" name="answer-option" value="1" />
+                    <span class="question-answer--icon"></span>
+                    <span id="op1text" class="question-answer--text"></span>
+                </label>
+                <label class="question-answer right" id="second-option">
+                    <input id="op2" class="question-answer--option" type="radio" name="answer-option" value="2" />
+                    <span class="question-answer--icon"></span>
+                    <span id="op2text" class="question-answer--text"></span>
+                </label>
+                <label class="question-answer wrong" id="third-option">
+                    <input id="op3" class="question-answer--option" type="radio" name="answer-option" value="3" />
+                    <span class="question-answer--icon"></span>
+                    <span id="op3text" class="question-answer--text"></span>
+                </label>
+            </div>
+
+            <div class="question-cta-container">
+                <button type="button" class="btn question-cta submit">Submit</button>
+                <button type="button" class="btn question-cta continue">Continue</button>
+            </div>
+
+            <div class="question-feedback-container">
+                <div class="question-feedback--icon"></div>
+                <div class="question-feedback--header"></div>
+                <div class="question-feedback--body"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="scorecard" class="scorecard wrapper">
+
+    </div> -->
+
+    <div id="result" class="result wrapper" style="display: none;">
+        <div class="result_box" id="resultdownload">
+            <div class="your_score">Your Result</div>
+			 <div class="details" >
+				<div class="first_column">
+					<div class="your_name">Your Name: </div>
+					<div class="y_name"></div>
+				</div>
+				<div class="second_column">
+					<div class="your_no">Your Number: </div>
+					<div class="y_no"></div>
+				</div>
+			</div>
+            <div class='result_tab1'>No. of Questions</div>
+            <div class='result_tab2'>No. of Correct Answeres</div>
+            <div class='result_tab3'>Percentages (%)</div>
+            <div class='result_tab4'></div>
+            <div class='result_tab5'></div>
+            <div class='result_tab6'></div>
+			<div class='result_pass' style="display: none;">PASS</div>
+			<div class='result_fail' style="display: none;">Fail</div>
+            
+        </div>
+
+		<p class="download" onclick="downloadresult()">Download your result <u class =" btn Start-test-btn">Click Here</u></p>
+
+		<p class="restart-test" onclick="location.reload()">Want a fresh start again? <u class ="btn Start-test-btn">Click Here</u></p>
+
+    </div>
+
+    <script src="assets/js/html2canvas.min.js"></script>
+	<script>
+		
+		var sumit = $(".submit");
+		var continuee = $(".continue");
+		var fname, phno;
+		
+		var start = false;
+		var selected = [];
+
+		var questions = [{
+			id: 0,
+			q: "Which one of the following statements correctly describe decision making?",
+			a:[
+			{text: "Process of finding solutions to difficult or complex issues", isCorrect: false},
+			{text: "Choosing between all the possible solutions to a problem", isCorrect: true},
+			{text: "Thinking process applied by an individual to achieve success in an endeavour", isCorrect: false}
+			]
+			},
+			{
+			id: 1,
+			q: "Decisions concerned with problems of a repetitive nature in an organisation are also known as ____________.",
+			a:[
+			{text: "Programmed decisions", isCorrect: true},
+			{text: "Non-programmed decisions", isCorrect: false},
+			{text: "Strategic decisions", isCorrect: false}
+			]
+			},
+			{
+			id: 2,
+			q: "Find the number of zeroes in 10 × 20 × 30 × ... × 1000.",
+			a:[
+			{text: "100", isCorrect: false},
+			{text: "124", isCorrect: true},
+			{text: "150", isCorrect: false}
+			]
+			},
+			{
+			id: 3,
+			q: "Which of the following triangles have the same side lengths?.",
+			a:[
+			{text: "Isosceles", isCorrect: false},
+			{text: "Scalene", isCorrect: false},
+			{text: "Equilateral", isCorrect: true}
+			]
+			},
+			{
+			id: 4,
+			q: "The height of an equilateral triangle of side 5 cm is.",
+			a:[
+			{text: "3.9 cm", isCorrect: false},
+			{text: "5 cm", isCorrect: false},
+			{text: "4.33 cm", isCorrect: true}
+			]
+			},
+			{
+			id: 5,
+			q: "In triangle ABC, ∠BAC = 90° and AD ⊥ BC. Then",
+			a:[
+			{text: "BD . CD = BC2", isCorrect: false},
+			{text: "BD . CD = AD2", isCorrect: true},
+			{text: "AB . AC = AD2", isCorrect: false}
+			]
+			},
+			{
+			id: 6,
+			q: "It is given that ΔABC ~ ΔDFE, ∠A = 30°, ∠C = 50°, AB = 5 cm, AC = 8 cm and DF = 7.5 cm. Then, the following is true:",
+			a:[
+			{text: "DE = 12 cm, ∠F = 100°", isCorrect: true },
+			{text: "DE = 12 cm, ∠F = 50°", isCorrect: false},
+			{text: "EF = 12 cm, ∠D = 100°", isCorrect: false}
+			]
+			},
+			{
+			id: 7,
+			q: "A circle has a number of tangents equal to",
+			a:[
+			{text: "Infinite", isCorrect: true },
+			{text: "0", isCorrect: false},
+			{text: "1", isCorrect: false}
+			]
+			},
+			{
+			id: 8,
+			q: "If a parallelogram circumscribes a circle, then it is a:",
+			a:[
+			{text: "Rhombus", isCorrect: true },
+			{text: "Rectangle", isCorrect: false},
+			{text: "Square", isCorrect: false}
+			]
+			},
+			{
+			id: 9,
+			q: "A line intersecting a circle in two points is called a _______.",
+			a:[
+			{text: "Chord", isCorrect: false},
+			{text: "Secant", isCorrect: true},
+			{text: "Tangent", isCorrect: false}
+			]
+			}
+			
+			
+		]
+		
+        $(".intro-btn").click(function(){
+		
+			fname = $("#fname").val();
+			phno = $("#phno").val();
+
+			if(fname == "" || phno == "") {
+
+				alert("Fill both the fields please!!");
+
+			} else {
+
+				start = true;
+				$(".question").css("display","block");
+				$("#intro").css("display","none");
+				
+				if(start){
+					iterate(0);
+				}
+
+			}
+			
+        });
+
+		function iterate(id) {
+		
+			$("#question-text").text(""+questions[id].q);
+			$(".continue").attr("id",id);
+			
+			$("#op1").val(questions[id].a[0].isCorrect);
+			$("#op2").val(questions[id].a[1].isCorrect);
+			$("#op3").val(questions[id].a[2].isCorrect);
+			
+			$("#op1text").text(""+questions[id].a[0].text);
+			$("#op2text").text(""+questions[id].a[1].text);
+			$("#op3text").text(""+questions[id].a[2].text);
+
+			$("#op1").attr("data-id",id);
+			$("#op2").attr("data-id",id);
+			$("#op3").attr("data-id",id);
+			
+		}
+
+		$("#op1").click(function() {
+			var ido = $(this).attr("data-id");
+			selected[ido] = $(this).val(); 
+		});
+
+		$("#op2").click(function() {
+			var ido = $(this).attr("data-id");
+			selected[ido] = $(this).val(); 
+		});
+
+		$("#op3").click(function() {
+			var ido = $(this).attr("data-id");
+			selected[ido] = $(this).val(); 
+		});
+
+		$(continuee).on('click', function(){
+
+		var idd = $(this).attr("id");
+
+		// i = 0 to 9 
+		if(idd <= (questions.length - 1)) {
+
+			if(selected[idd] === 'undefined' || selected[idd] == null || selected[idd] === undefined) {
+				alert("select any one option");
+			}
+			else {
+				idd++;
+				if(idd <= (questions.length - 1)) {
+					iterate(idd);
+				}
+				else {
+					alert("submit quiz");
+				}
+			}
+		}
+		else {
+			alert("submit quiz");
+		}
+
+		});
+
+		$(".submit").on('click', function(){
+
+		if(selected.length == questions.length) {
+
+			$(".question").css("display","none");
+			$("#result").css("display","block");
+			
+			var qn = questions.length;
+			var sn = $.grep(selected, function(elem) { return elem == "true" }).length;
+			var pc = (sn / qn) * 100;
+			$(".y_name").text(fname);
+			$(".y_no").text(phno);
+			$(".result_tab4").text(questions.length);
+			$(".result_tab5").text(sn);
+			$(".result_tab6").text(pc);
+			
+			if(pc > 50) {
+				$(".result_pass").css("display","block");
+			}
+			else {
+				$(".result_fail").css("display","block");
+			}
+
+		}
+		else {
+
+			alert("complete quiz");
+
+		}
+
+		});
+		
+		function downloadresult(){
+			
+			html2canvas(document.querySelector("#resultdownload")).then(canvas => {
+				var imgData = canvas.toDataURL('image/png');              
+                var doc = new jsPDF('p', 'mm');
+                doc.addImage(imgData, 'PNG', 10, 10);
+                doc.save('sample-file.pdf');
+			});
+
+		}
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+@import url('normalize.css');
+@import url('animate.min.css');
+
+/* Questions CSS */
+@import url('./question.css');
+
+/* Utilities */
+@import url('button.css');
+
+/* CSS3 Variables */
+:root {
+    --center-box-width: 77.2rem;
+    --center-box-height: 25rem;
+}
+
+/* comon css */
+* {
+    box-sizing: border-box;
+}
+html {
+    font-size: 62.5%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    font-size: 1.6rem;
+    background: url(../images/questionMark.png) 80% 65% no-repeat #fff;
+}
+/* input Field */
+.form-input{
+    border-bottom: 1px solid;
+    border: 1px solid #C00;
+    padding: 1rem 0.5rem 1rem 3rem;
+    border-radius: 0 3rem 0 3rem;
+}
+
+.details{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+    margin-top: 25px;
+}
+
+/* common classes */
+.clear {
+    display: block;
+    clear: both;
+}
+.wrapper {
+    position: relative;
+    min-height: 100vh;
+    /* display: none; */
+}
+.wrapper.flex,
+.wrapper.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-box {
+    width: var(--center-box-width);
+    height: var(--center-box-height);
+}
+
+
+.intro-center-box {
+    border: 1px solid #C00;
+    padding: 3rem 1.5rem 3rem 3rem;
+    border-radius: 0 6rem 0 6rem;
+    position: relative;
+    height: auto;
+}
+
+.badge {
+    padding: 1.5rem 2.5rem;
+    font-weight: bold;
+    border-radius: 2rem;
+}
+
+.red-badge {
+    background-color: #f00;
+    color: #fff;
+}
+.white-badge {
+    background-color: #fff;
+    color: #f00;
+}
+.intro-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1.1em;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    transform: translate(-2rem, -50%);
+}
+.intro-badge::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 1rem solid #a00;
+    border-left: 2rem solid transparent;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+
+.intro-p-start {
+    color: #800080;
+}
+.intro-p-question-focus {
+    font-size: 1.05em;
+    font-weight: bold;
+    color: #a00;
+}
+.intro-proceed {
+    margin-top: 1.5em;
+    font-style: italic;
+    font-weight: bold;
+}
+.intro-proceed--label {
+    color: #f00;
+    display: inline-block;
+}
+
+
+.intro-btn {
+    margin-left: .5em;
+}
+.intro-btn::before {
+    content: '►►';
+    letter-spacing: -.5rem;
+    display: inline-block;
+    vertical-align: text-top;
+    margin-right: .5em;
+}
+
+
+.result {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1010px;
+    height: 568px;
+}
+
+.result_box {
+    position: absolute;
+    width: 500px;
+    height: 310px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: 2px solid #000;
+    border-radius: 20px;
+    background: #f1f1f2;
+}
+
+.your_score {
+    font-size: 20px;
+    font-family: arial;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.y_name{
+
+    font-weight: bold;
+
+}
+
+.y_no{
+
+    font-weight: bold;
+    
+}
+
+.result_tab1 {
+    position: relative;
+    width: 33%;
+    height: 60px;
+    float: left;
+    padding: 10px 0;
+    text-align: center;
+
+}
+
+.result_tab2 {
+    position: relative;
+    width: 33%;
+    height: 60px;
+    float: left;
+    padding: 10px 0;
+    text-align: center;
+
+}
+
+.result_tab3 {
+    position: relative;
+    width: 33%;
+    height: 60px;
+    float: left;
+    padding: 10px 0;
+    text-align: center;
+
+}
+
+.result_tab4 {
+    position: relative;
+    width: 33%;
+    height: 60px;
+    float: left;
+    padding: 10px 0;
+    text-align: center;
+    background: #ccc;
+    color: #fff;
+    line-height: 46px;
+}
+
+.result_tab5 {
+    position: relative;
+    width: 34%;
+    height: 60px;
+    float: left;
+    padding: 10px 0;
+    text-align: center;
+    background: #ccc;
+    color: #fff;
+    line-height: 46px;
+}
+
+.result_tab6 {
+    position: relative;
+    width: 33%;
+    height: 60px;
+    float: left;
+    padding: 10px 0;
+    text-align: center;
+    background: #ccc;
+    color: #fff;
+    line-height: 46px;
+}
+.result_pass {
+    font-size: 20px;
+    font-family: arial;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    margin: 15px 0;
+    color: green;
+    position: absolute;
+    bottom: 20px;
+}
+
+.result_fail {
+    font-size: 20px;
+    font-family: arial;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    margin: 15px 0;
+    color: red;
+    position: absolute;
+    bottom: 20px;  
+}
+
+.download{
+    margin: 48% 0 0 35%;
+}
+
+.restart-test{
+    margin: 5% 0 0 34%;
+}
+
+.Start-test-btn:hover{
+    cursor: pointer;
+    font-weight: bold;
+}
